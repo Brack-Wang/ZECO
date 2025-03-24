@@ -45,6 +45,6 @@ ZECO Pipeline.
 
 </details>
 
-# Scientific Application
+# Scientific Application ⭐
 ![table](./assets/project.jpg)
 Our ZECO model has demonstrated strong generalization in generating 3D neuron images from sparse datasets in our scientific project "A Unified Framework for Unsupervised Sparse-to-dense Brain Image Generation and Neural Circuit Reconstruction", [have a look](https://brack-wang.github.io/brainbow_webpage/generative_model.html)
