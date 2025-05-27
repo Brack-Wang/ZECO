@@ -6,7 +6,7 @@
 
 <p align="center"> <img src="assets/mri.png" width="100px"> </p>
 
-[Paper](https://arxiv.org/abs/2503.08596) | [Project](https://brack-wang.github.io/ZECO_web/) 
+[Paper](https://arxiv.org/pdf/2503.18246) | [Project](https://brack-wang.github.io/ZECO_web/) 
 
 <h2> ZECO: ZeroFusion Guided 3D MRI Conditional Generation </h2> 
 
