@@ -5,6 +5,8 @@
 
 <p align="center"> <img src="assets/mri.png" width="100px"> </p>
 
+**MVA 2025 Oral Presentation** 🎉
+
 [Paper](https://arxiv.org/pdf/2503.18246) | [Project](https://brack-wang.github.io/ZECO_web/)
 
 <h3>ZECO: ZeroFusion Guided 3D MRI Conditional Generation</h3>
