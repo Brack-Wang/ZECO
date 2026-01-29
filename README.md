@@ -6,6 +6,9 @@ Official PyTorch implementation of **ZECO: ZeroFusion Guided 3D MRI Conditional 
 
 ZECO is a novel framework for 3D MRI conditional generation that leverages zero-shot fusion techniques to generate high-quality medical images. This repository contains the training and inference code for the VQVAE autoencoder, Latent Diffusion Models (LDM), and 3D Multi-modal Conditional Generation (3MCG) components.
 
+**Star this repository if you find it helpful!** 🌟
+
+
 ## Features
 
 - **3D VQVAE**: Vector Quantized Variational AutoEncoder for 3D medical image compression
@@ -13,32 +16,6 @@ ZECO is a novel framework for 3D MRI conditional generation that leverages zero-
 - **3MCG Framework**: Multi-modal conditional generation with mask-based control
 - **BraTS Dataset Support**: Built-in support for BraTS 2020 dataset
 
-## Project Structure
-
-```
-zeco/
-├── scripts/
-│   ├── train/
-│   │   ├── train_vqvae.py          # VQVAE training script
-│   │   ├── train_ldm.py            # LDM training (FLAIR modality)
-│   │   └── train_3mcg.py           # 3MCG full model training
-│   ├── test/
-│   │   ├── fid_test.py             # FID metric evaluation
-│   │   └── read.py                 # Data reading utilities
-│   └── text_token.py               # Text tokenization utilities
-├── generative/                      # Core generative models
-│   ├── networks/                   # Neural network architectures
-│   ├── inferers/                   # Inference modules
-│   ├── losses/                     # Loss functions
-│   ├── metrics/                    # Evaluation metrics
-│   └── utils/                      # Utility functions
-├── MONAI/                          # MONAI medical imaging framework
-├── README.md                       # This file
-├── QUICKSTART.md                   # Quick start guide
-├── requirements.txt                # Python dependencies
-├── verify_installation.py          # Installation verification script
-└── setup.sh                        # Environment setup script
-```
 
 ## Installation
 
@@ -81,10 +58,6 @@ pip install -r requirements.txt
 pip install monai[all]
 ```
 
-6. Verify installation:
-```bash
-python verify_installation.py
-```
 
 This will check all dependencies and ensure your environment is ready for training.
 
@@ -248,15 +221,3 @@ This work builds upon:
 
 This project is released under the MIT License. See [LICENSE](LICENSE) file for details.
 
-## Contact
-
-For questions and discussions, please open an issue or contact:
-- Feiran Wang: [email@example.com]
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
----
-
-**Star this repository if you find it helpful!** 🌟
