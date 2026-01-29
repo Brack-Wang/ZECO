@@ -1,7 +1,21 @@
 
 # ZECO: ZeroFusion Guided 3D MRI Conditional Generation
 
-Official PyTorch implementation of **ZECO: ZeroFusion Guided 3D MRI Conditional Generation**.
+<div align="center">
+
+<p align="center"> <img src="assets/mri.png" width="100px"> </p>
+
+[Paper](https://arxiv.org/pdf/2503.18246) | [Project](https://brack-wang.github.io/ZECO_web/)
+
+<h3>ZECO: ZeroFusion Guided 3D MRI Conditional Generation</h3>
+
+<img src="assets/pipeline.jpg" style="width:100%" />
+
+**ZECO Pipeline**: Our framework combines VQVAE, Latent Diffusion Models, and ControlNet for high-quality 3D MRI conditional generation.
+
+</div>
+
+&nbsp;
 
 ## Overview
 
@@ -184,9 +198,27 @@ mmd = MMDMetric()
 
 ## Results
 
-![Sample Results](docs/sample_results.png)
+### Qualitative Results
 
-Our method achieves state-of-the-art performance on 3D brain tumor MRI generation tasks. See the paper for detailed quantitative results.
+<details open>
+<summary><b>Visual Comparisons</b></summary>
+
+![Compare Results](assets/compare.gif)
+
+Our method generates high-quality 3D MRI images with realistic tumor structures.
+
+</details>
+
+### Quantitative Results
+
+<details open>
+<summary><b>Performance Metrics</b></summary>
+
+![Results Table](assets/table.jpg)
+
+ZECO achieves state-of-the-art performance across multiple metrics on the BraTS 2020 dataset.
+
+</details>
 
 ## Citation
 
