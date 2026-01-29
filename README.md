@@ -5,7 +5,7 @@
 
 <p align="center"> <img src="assets/mri.png" width="100px"> </p>
 
-**MVA 2025 Oral Presentation** 🎉
+<h2>🎉 MVA 2025 Oral Presentation 🎉</h2>
 
 [Paper](https://arxiv.org/pdf/2503.18246) | [Project](https://brack-wang.github.io/ZECO_web/)
 
