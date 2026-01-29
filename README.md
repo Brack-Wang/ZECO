@@ -9,8 +9,6 @@
 
 [Paper](https://arxiv.org/pdf/2503.18246) | [Project](https://brack-wang.github.io/ZECO_web/)
 
-<h3>ZECO: ZeroFusion Guided 3D MRI Conditional Generation</h3>
-
 <img src="assets/pipeline.jpg" style="width:100%" />
 
 **ZECO Pipeline**: Our framework combines VQVAE, Latent Diffusion Models, and ControlNet for high-quality 3D MRI conditional generation.
