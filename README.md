@@ -5,224 +5,120 @@
 
 <p align="center"> <img src="assets/mri.png" width="100px"> </p>
 
-<h2>🎉 MVA 2025 Oral Presentation 🎉</h2>
+<h2>MVA 2025 Oral Presentation</h2>
 
 [Paper](https://arxiv.org/pdf/2503.18246) | [Project](https://brack-wang.github.io/ZECO_web/)
 
 <img src="assets/pipeline.jpg" style="width:100%" />
 
-**ZECO Pipeline**: Our framework combines VQVAE, Latent Diffusion Models, and ControlNet for high-quality 3D MRI conditional generation.
-
 </div>
-
-&nbsp;
 
 ## Overview
 
-ZECO is a novel framework for 3D MRI conditional generation that leverages zero-shot fusion techniques to generate high-quality medical images. This repository contains the training and inference code for the VQVAE autoencoder, Latent Diffusion Models (LDM), and 3D Multi-modal Conditional Generation (3MCG) components.
-
-**Star this repository if you find it helpful!** 🌟
-
-
-## Features
-
-- **3D VQVAE**: Vector Quantized Variational AutoEncoder for 3D medical image compression
-- **Latent Diffusion Models**: High-quality latent space diffusion for both FLAIR and T1 modalities
-- **3MCG Framework**: Multi-modal conditional generation with mask-based control
-- **BraTS Dataset Support**: Built-in support for BraTS 2020 dataset
-
+ZECO is a framework for 3D MRI conditional generation using zero-shot fusion techniques. It combines VQVAE, Latent Diffusion Models (LDM), and ControlNet for high-quality medical image synthesis.
 
 ## Installation
 
-### Prerequisites
-
-- Python >= 3.8
-- CUDA >= 11.0 (for GPU training)
-- 16GB+ GPU memory recommended
-
-### Environment Setup
-
-1. Clone the repository:
 ```bash
+# Clone repository
 git clone https://github.com/yourusername/zeco.git
 cd zeco
-```
 
-2. Create a virtual environment (recommended):
-```bash
+# Create environment
 conda create -n zeco python=3.9
 conda activate zeco
-```
 
-3. Install PyTorch (choose the appropriate version for your CUDA):
-```bash
-# For CUDA 11.8
+# Install PyTorch (CUDA 11.8)
 pip install torch torchvision --index-url https://download.pytorch.org/whl/cu118
 
-# For CUDA 12.1
-pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121
-```
-
-4. Install dependencies:
-```bash
+# Install dependencies
 pip install -r requirements.txt
-```
-
-5. Install MONAI (if not already installed):
-```bash
 pip install monai[all]
 ```
 
+## Project Structure
 
-This will check all dependencies and ensure your environment is ready for training.
+```
+ZECO/
+├── train.py              # Training entry point
+├── test.py               # Testing and evaluation
+├── scripts/              # Training implementations
+│   ├── train_vqvae.py
+│   ├── train_ldm.py
+│   └── train_3mcg.py
+├── generative/           # Model library
+└── MONAI/
+```
 
 ## Data Preparation
 
-### BraTS 2020 Dataset
+Download [BraTS 2020](https://www.med.upenn.edu/cbica/brats2020/data.html) dataset and update the path in `scripts/train_*.py`:
 
-1. Download the BraTS 2020 dataset from the [official website](https://www.med.upenn.edu/cbica/brats2020/data.html)
-
-2. Extract the dataset to your data directory:
-```bash
-# Expected structure:
-# /path/to/dataset/brat20/MICCAI_BraTS2020_TrainingData/
-#   ├── BraTS20_Training_001/
-#   │   ├── BraTS20_Training_001_flair.nii
-#   │   ├── BraTS20_Training_001_t1.nii
-#   │   ├── BraTS20_Training_001_t1ce.nii
-#   │   ├── BraTS20_Training_001_t2.nii
-#   │   └── BraTS20_Training_001_seg.nii
-#   ├── BraTS20_Training_002/
-#   └── ...
-```
-
-3. Update the data path in training scripts:
 ```python
-# In scripts/train/*.py, modify:
-train_data_dir = "/path/to/your/dataset/brat20/MICCAI_BraTS2020_TrainingData"
+train_data_dir = "/path/to/MICCAI_BraTS2020_TrainingData"
 ```
-
-### Data Format
-
-- **Image files**: `.nii` or `.nii.gz` format
-- **Expected modalities**: FLAIR, T1, T1CE, T2
-- **Segmentation masks**: Multi-class tumor segmentation
-- **Spatial size**: Original images are resampled to 96×96×64
 
 ## Training
 
-### Stage 1: Train VQVAE
-
-Train the vector quantized autoencoder first:
+### Stage 1: VQVAE
 
 ```bash
-# For FLAIR modality (channel=0)
-python scripts/train/train_vqvae.py
-
-# For T1 modality, modify channel parameter in the script:
-# channel = 1  # 0=FLAIR, 1=T1, 2=T1CE, 3=T2
+python train.py --model vqvae --channel 0   # FLAIR
+python train.py --model vqvae --channel 1   # T1
 ```
 
-**Key hyperparameters:**
-- Batch size: 2
-- Epochs: 20
-- Learning rate: 1e-4
-- Input size: 96×96×64
-- Latent space: 12×12×8
-
-### Stage 2: Train Latent Diffusion Model
-
-Train the LDM using the pre-trained VQVAE:
+### Stage 2: Latent Diffusion Model
 
 ```bash
-python scripts/train/train_ldm.py
+python train.py --model ldm
 ```
 
-**Key hyperparameters:**
-- Batch size: 10-16
-- Epochs: 200
-- Validation interval: 25
-- DDPM steps: 1000
-- Learning rate: 1e-4
-
-### Stage 3: Train 3MCG (Full Model)
-
-Train the full 3MCG model with ControlNet:
+### Stage 3: 3MCG (Full Model)
 
 ```bash
-python scripts/train/train_3mcg.py
+python train.py --model 3mcg
 ```
 
-**Key hyperparameters:**
-- Batch size: 16
-- AutoEncoder epochs: 200
-- DDPM epochs: 400
-- ControlNet epochs: 400
-- Validation interval: 25
+For detailed configuration, edit scripts in `scripts/` directly.
 
-### Training Tips
-
-1. **GPU Memory**: Reduce batch size if you encounter OOM errors
-2. **Checkpointing**: Models are saved every validation interval
-3. **Monitoring**: Training visualizations are saved in the model directory
-4. **Resume Training**: Load checkpoint and continue from saved epoch
-
-## Testing and Evaluation
-
-### Generate Samples
-
-Use the trained models to generate synthetic MRI images:
+## Testing
 
 ```bash
-# Update the checkpoint paths in the test script
-python scripts/test/fid_test.py
+# Test VQVAE
+python test.py --model vqvae --checkpoint /path/to/vqvae.pth --compute_ssim
+
+# Test LDM
+python test.py --model ldm \
+    --checkpoint /path/to/ldm.pth \
+    --vqvae_checkpoint /path/to/vqvae.pth \
+    --compute_ssim
+
+# Test 3MCG
+python test.py --model 3mcg \
+    --checkpoint /path/to/controlnet.pth \
+    --vqvae_checkpoint /path/to/vqvae.pth \
+    --compute_ssim --visualize
 ```
 
-### Evaluation Metrics
-
-The framework supports multiple evaluation metrics:
-
-- **FID (Fréchet Inception Distance)**: Image quality and diversity
-- **MS-SSIM (Multi-Scale Structural Similarity)**: Structural similarity
-- **SSIM**: Structural similarity index
-- **MMD (Maximum Mean Discrepancy)**: Distribution matching
-
-Example usage:
-```python
-from generative.metrics import FIDMetric, MultiScaleSSIMMetric, SSIMMetric, MMDMetric
-
-ms_ssim = MultiScaleSSIMMetric(spatial_dims=3, data_range=1.0, kernel_size=2)
-ssim = SSIMMetric(spatial_dims=3, data_range=1.0, kernel_size=2)
-mmd = MMDMetric()
-```
+**Available metrics:** `--compute_fid`, `--compute_ssim`, `--compute_mmd`
 
 ## Results
-
-### Qualitative Results
 
 <details open>
 <summary><b>Visual Comparisons</b></summary>
 
 ![Compare Results](assets/compare.gif)
 
-Our method generates high-quality 3D MRI images with realistic tumor structures.
-
 </details>
 
-### Quantitative Results
-
 <details open>
-<summary><b>Performance Metrics</b></summary>
+<summary><b>Quantitative Results</b></summary>
 
 ![Results Table](assets/table.jpg)
-
-ZECO achieves state-of-the-art performance across multiple metrics on the BraTS 2020 dataset.
 
 </details>
 
 ## Citation
-
-If you find this work useful, please consider citing our paper and giving us a 🌟:
 
 ```bibtex
 @article{wang2025zeco,
@@ -245,12 +141,9 @@ If you find this work useful, please consider citing our paper and giving us a �
 
 ## Acknowledgments
 
-This work builds upon:
-- [MONAI](https://monai.io/): Medical Open Network for AI
-- [BraTS Challenge](https://www.med.upenn.edu/cbica/brats2020/): Brain Tumor Segmentation Challenge
-- Latent Diffusion Models and ControlNet architectures
+- [MONAI](https://monai.io/)
+- [BraTS Challenge](https://www.med.upenn.edu/cbica/brats2020/)
 
 ## License
 
-This project is released under the MIT License. See [LICENSE](LICENSE) file for details.
-
+MIT License. See [LICENSE](LICENSE) for details.

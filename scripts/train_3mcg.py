@@ -11,8 +11,8 @@ from tqdm import tqdm
 import numpy as np
 import time
 import torch
-sys.path.append(os.path.join(os.path.dirname(__file__), "../..", "generative"))
-sys.path.append(os.path.join(os.path.dirname(__file__), "../..", "MONAI"))
+sys.path.append(os.path.join(os.path.dirname(__file__), "..", "generative"))
+sys.path.append(os.path.join(os.path.dirname(__file__), "..", "MONAI"))
 import matplotlib.pyplot as plt
 import torch
 import torch.nn.functional as F
