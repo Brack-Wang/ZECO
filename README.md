@@ -5,7 +5,7 @@
 
 <p align="center"> <img src="assets/mri.png" width="100px"> </p>
 
-<h2>MVA 2025 Oral Presentation</h2>
+<h2>MVA 2025 Oral</h2>
 
 [Paper](https://arxiv.org/pdf/2503.18246) | [Project](https://brack-wang.github.io/ZECO_web/)
 
@@ -14,8 +14,7 @@
 </div>
 
 ## Overview
-
-ZECO is a framework for 3D MRI conditional generation using zero-shot fusion techniques. It combines VQVAE, Latent Diffusion Models (LDM), and ControlNet for high-quality medical image synthesis.
+ We present ZECO, a ZeroFusion guided 3D MRI conditional generation framework that extracts, compresses, and generates highfidelity MRI images with corresponding 3D segmentation masks to mitigate data scarcity.
 
 ## Installation
 
@@ -36,19 +35,6 @@ pip install -r requirements.txt
 pip install monai[all]
 ```
 
-## Project Structure
-
-```
-ZECO/
-├── train.py              # Training entry point
-├── test.py               # Testing and evaluation
-├── scripts/              # Training implementations
-│   ├── train_vqvae.py
-│   ├── train_ldm.py
-│   └── train_3mcg.py
-├── generative/           # Model library
-└── MONAI/
-```
 
 ## Data Preparation
 
@@ -60,7 +46,7 @@ train_data_dir = "/path/to/MICCAI_BraTS2020_TrainingData"
 
 ## Training
 
-### Stage 1: VQVAE
+### Stage 1: 3D VQVAE
 
 ```bash
 python train.py --model vqvae --channel 0   # FLAIR
@@ -142,7 +128,6 @@ python test.py --model 3mcg \
 ## Acknowledgments
 
 - [MONAI](https://monai.io/)
-- [BraTS Challenge](https://www.med.upenn.edu/cbica/brats2020/)
 
 ## License
 
